@@ -1,4 +1,4 @@
-title: Nginx is already running
+title: Nginx basics
 description: Open a lab where nginx is already serving a page.
 # Save a snapshot once SSH is up. nginx is already listening by then.
 snapshot: true
