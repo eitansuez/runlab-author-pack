@@ -1,0 +1,10 @@
+title: Nginx is already running
+description: Open a lab where nginx is already serving a page.
+# Save a snapshot once SSH is up. nginx is already listening by then.
+snapshot: true
+# The bar above the lesson. The link opens on its own hostname so the
+# guest still serves / at the root of this port.
+services:
+  - name: nginx
+    port: 80
+    path: /

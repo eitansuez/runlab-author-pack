@@ -1,0 +1,65 @@
+#!/bin/sh
+# Install the author-pack prerequisites.
+#
+# QEMU, OVMF, the ext4 tools, HashiCorp Packer, and Firecracker v1.17.0.
+# Firecracker is written in this directory, named firecracker.
+#
+# usage: ./prereqs
+# Run it from the pack directory. apt installs ask for sudo.
+set -eu
+
+cd "$(CDPATH= cd "$(dirname "$0")" && pwd)"
+
+if [ "$(uname -s)" != Linux ] || [ "$(uname -m)" != x86_64 ]; then
+	echo "prereqs: this pack runs on Linux x86_64" >&2
+	exit 1
+fi
+
+if ! command -v sudo >/dev/null 2>&1; then
+	echo "prereqs: sudo is not on PATH" >&2
+	exit 1
+fi
+
+workdir=$(mktemp -d)
+cleanup() {
+	rm -rf "$workdir"
+}
+trap cleanup EXIT
+
+export DEBIAN_FRONTEND=noninteractive
+
+echo "prereqs: packages"
+sudo apt-get update
+sudo apt-get install -y \
+	qemu-system-x86 qemu-utils ovmf e2fsprogs xorriso \
+	binutils file python3 ca-certificates curl gnupg
+
+echo "prereqs: packer"
+keyring=/usr/share/keyrings/hashicorp-archive-keyring.gpg
+curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor > "$workdir/hashicorp.gpg"
+sudo install -m 0644 "$workdir/hashicorp.gpg" "$keyring"
+arch=$(dpkg --print-architecture)
+# shellcheck disable=SC1091
+. /etc/os-release
+codename=${UBUNTU_CODENAME:-${VERSION_CODENAME:-}}
+if [ -z "$codename" ]; then
+	echo "prereqs: cannot read the distro codename from /etc/os-release" >&2
+	exit 1
+fi
+echo "deb [arch=${arch} signed-by=${keyring}] https://apt.releases.hashicorp.com ${codename} main" \
+	| sudo tee /etc/apt/sources.list.d/hashicorp.list >/dev/null
+sudo apt-get update
+sudo apt-get install -y packer
+
+echo "prereqs: firecracker"
+ver=v1.17.0
+curl -fsSL -o "$workdir/firecracker.tgz" \
+	"https://github.com/firecracker-microvm/firecracker/releases/download/${ver}/firecracker-${ver}-x86_64.tgz"
+tar -xzf "$workdir/firecracker.tgz" -C "$workdir"
+install -m 0755 "$workdir/release-${ver}-x86_64/firecracker-${ver}-x86_64" ./firecracker
+
+if [ ! -r /dev/kvm ] || [ ! -w /dev/kvm ]; then
+	echo "prereqs: /dev/kvm is not usable by this account. A build needs it." >&2
+fi
+
+echo "prereqs: done"
