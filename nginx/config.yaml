@@ -1,5 +1,5 @@
 title: Nginx basics
-description: Open a lab where nginx is already serving a page.
+description: An example of a lesson with a memory snapshot - nginx running, plus a service link.
 # Save a snapshot once SSH is up. nginx is already listening by then.
 snapshot: true
 # The bar above the lesson. The link opens on its own hostname so the
