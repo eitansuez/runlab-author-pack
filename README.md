@@ -4,6 +4,6 @@ This pack lets you build, develop, and test labs on your own machine. When a lab
 
 It runs on Linux x86_64 with KVM.
 
-Download the latest release and unpack it. The archive contains `trylab`, `packer`, and the instructions.
+Download the latest release and unpack it. The archive contains `trylab`, `runlabctl`, `packer`, and the instructions.
 
 https://github.com/eitansuez/runlab-author-pack/releases/latest
