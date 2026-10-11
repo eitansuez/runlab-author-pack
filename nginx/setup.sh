@@ -37,3 +37,10 @@ systemctl daemon-reload
 systemctl enable nginx.service
 systemctl enable "$ssh_unit"
 systemctl disable ssh.socket || true
+
+welcome=/var/www/html/index.nginx-debian.html
+if [ ! -f "$welcome" ]; then
+  echo "nginx welcome page is missing" >&2
+  exit 1
+fi
+sed -i 's|</body>|<p>Hello from runlab.</p>\n</body>|' "$welcome"
