@@ -25,7 +25,9 @@ jobs:
       - name: Install Zensical
         run: pip install -r requirements.txt
       - name: Build the site
-        run: zensical build
+        run: |
+          zensical build
+          cp CNAME site/CNAME
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
