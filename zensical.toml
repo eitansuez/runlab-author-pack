@@ -1,0 +1,29 @@
+[project]
+site_name = "runlab"
+site_description = "How to write a lab and publish it."
+
+nav = [
+  { "A lab" = "index.md" },
+  { "The author pack" = "author-pack.md" },
+  { "Install the pack" = "install.md" },
+  { "Your first lab" = "first-lab.md" },
+  { "Prepare the machine" = "prepare.md" },
+  { "Write your own" = "yours.md" },
+  { "Publish" = "publish.md" },
+  { "An API key" = "secret.md" },
+  { "Reference" = [
+    { "config.yaml" = "reference/config.md" },
+    { "The lesson" = "reference/lesson.md" },
+    { "Commands" = "reference/trylab.md" },
+    { "Secrets" = "reference/secrets.md" },
+  ] },
+]
+
+[project.theme]
+features = [
+  "navigation.footer",
+  "content.code.copy",
+]
+
+[project.theme.palette]
+scheme = "slate"
