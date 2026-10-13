@@ -34,17 +34,26 @@ Names are compared without regard to case, and a repeated name is kept only once
 
 ## services
 
-Links in the bar above the lesson. Each entry has a `name`, a `port`, and a `path`.
+Links to a page the lab machine is serving. Each entry has a `name`, a `port`, and a `path`.
 
-`name` is the text of the link, and it's required. `port` is the port on the lab machine, from 1 to 65535, and each port can appear only once. `path` is the path on that port and starts with `/`; if you leave it out, the link uses `/`.
+`name` is the text of the link in the bar, and it's required. `port` is the port on the lab machine, from 1 to 65535, and each port can appear only once. `path` is the path on that port and starts with `/`; if you leave it out, the link uses `/`.
 
-The link opens in a new tab.
+The bar link opens in a new tab. Set `header: false` when that page is not up at the start of the lab. The link stays out of the bar, and you can still place it in the lesson.
+
+The lesson link uses a short name made from `name`. The name is lowercased. Spaces, underscores, and hyphens become a single hyphen. Anything else is left out. `Agentgateway UI` is `agentgateway-ui`.
+
+```markdown
+Open the [Agentgateway UI](service:agentgateway-ui).
+```
+
+That link opens in a new tab, on the port and path from this file. A link that doesn't match a service stops the lab from opening. So does a pair of services that shorten to the same name. An example inside a fenced code block is not a link.
 
 ```yaml
 services:
-  - name: nginx
-    port: 80
-    path: /
+  - name: Agentgateway UI
+    port: 4000
+    path: /ui
+    header: false
 ```
 
 ## env

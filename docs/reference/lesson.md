@@ -29,6 +29,14 @@ A quote whose first line is exactly `[!IMPORTANT]` is drawn as a labeled note. T
 
 ## Services
 
-Links to pages the machine is serving aren't written in the lesson. They come from `services` in `config.yaml` and appear in the bar above the lesson, and each one opens in a new tab on the port and path you named.
+A service in `config.yaml` can appear in the bar above the lesson. It can also be a link in the lesson, at the step where the learner should open it. Both open in a new tab.
+
+The short name comes from the service name. The name is lowercased. Spaces, underscores, and hyphens become a single hyphen. Anything else is left out. `Agentgateway UI` is `agentgateway-ui`.
+
+```markdown
+Open the [Agentgateway UI](service:agentgateway-ui).
+```
+
+`header: false` on that service keeps it out of the bar. Leave the flag out, and the bar shows the link from the start. A link that doesn't match a service stops the lab from opening. An example inside a fenced code block is not a link.
 
 Inside the shell, you can reach that same port at `127.0.0.1`, because that's the machine you're on.

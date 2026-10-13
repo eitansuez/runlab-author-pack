@@ -43,7 +43,9 @@ A change to a story script leaves the disk as it is. The build takes that save a
 
 You can put a link in the bar above the lesson that points at a port on the lab's machine. It opens in a new tab.
 
-In `config.yaml`, each link has three fields: `name` is the text of the link, `port` is the port on the machine, and `path` is the path on that port, starting with `/`. If you leave `path` out, the link uses `/`.
+In `config.yaml`, each link has a `name`, a `port`, and a `path`. `name` is the text of the link, `port` is the port on the machine, and `path` is the path on that port, starting with `/`. If you leave `path` out, the link uses `/`.
+
+The same link can sit in the lesson, at the step where the learner should open it. Write `[Agentgateway UI](service:agentgateway-ui)`. Set `header: false` when that page is not running at the start. The bar leaves it out, and the learner opens it from the lesson.
 
 nginx serves its welcome page on port 80, at `/`.
 
