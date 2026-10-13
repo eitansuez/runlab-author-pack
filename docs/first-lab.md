@@ -1,27 +1,27 @@
 # Your first lab
 
-A lab is a directory next to `trylab`. The directory's name is the lab's name. Use letters, digits, and hyphens. Do not use the name `default`. That name belongs to the shared disk.
+Each lab is a directory that sits next to `trylab`, and the directory's name becomes the lab's name. Stick to letters, digits, and hyphens, and avoid `default`, which is reserved for the shared disk.
 
-The `basics` directory is a finished lab. It has two files.
+The pack includes a finished lab called `basics`, so you can see what one looks like. It has just two files.
 
 ## config.yaml
 
-`config.yaml` is how the lab introduces itself.
+`config.yaml` holds the lab's title and description, which is how learners recognize it before they open it.
 
-`title` is the name a learner sees in the list of labs, and in the banner at the top of the lab page. That list is the catalog. `description` is the sentence under the title.
+The `title` appears in two places: in the catalog, which is the list of labs a learner picks from, and in the banner at the top of the lab page. The `description` is the sentence shown under the title in the catalog.
 
 ```yaml
 title: Unix command basics
 description: Learn the basics of Unix commands ls, cd, mkdir and friends.
 ```
 
-That is the whole file for `basics`. This lab does not install any software, so it uses the shared disk. The first time you open it, `trylab` says that disk is missing and asks `Build it now?`. Press Enter to build it.
+That's the entire file for `basics`. Because this lab doesn't install any software, it runs on the shared disk. The first time you open it, `trylab` notices that the shared disk doesn't exist yet and asks `Build it now?`. Press Enter to build it.
 
 ## The lesson
 
-`index.md` is the lesson the learner reads. It is Markdown, which means headings, lists, and blocks of code. The file in the pack is a short walk through `pwd`, `ls`, `mkdir`, and `cd`.
+`index.md` is the lesson the learner reads. It's written in Markdown, so you can use headings, lists, and code blocks. The lesson in the pack is a short walk through `pwd`, `ls`, `mkdir`, and `cd`.
 
-When the learner should run a command, put the command in a block tagged `shell`:
+When you want the learner to run a command, put it in a code block tagged `shell`:
 
 ````markdown
 ```shell
@@ -29,42 +29,44 @@ pwd
 ```
 ````
 
-On the lab page, that block has two buttons. Copy puts the command on the clipboard. Run types it into the shell and presses Enter.
+On the lab page, that block gets two buttons: Copy puts the command on the clipboard, and Run types it into the shell and presses Enter for the learner.
 
-A block tagged `bash`, `sh`, `zsh`, or `ksh` works the same way. A block with any other tag, or with no tag, is shown as text. The learner can copy it. It does not get a Run button.
+Blocks tagged `bash`, `sh`, `zsh`, or `ksh` get the same buttons. A block with any other tag, or with no tag at all, is shown as plain text that the learner can copy but not run.
 
-A link in the lesson opens in a new browser tab.
+Links in the lesson open in a new browser tab.
 
-The lesson is read from `index.md` when the lab opens. It is not stored on the disk. You can change the words without building the disk again.
+Because the lesson is read from `index.md` each time the lab opens, and isn't stored on the disk, you can edit the wording as often as you like without rebuilding the disk.
 
 ## Open it
 
-`trylab` starts the lab. It runs as you. If you start it with sudo, it switches back to your user before it writes a disk.
+Run `trylab` with the lab's name to start it:
 
 ```shell
 ./trylab basics
 ```
 
-If a program from the install is missing, `trylab` asks whether to run `./prereqs`. Answer yes and the installer runs. It asks for your password.
+`trylab` runs as your own user. If you start it with sudo, it switches back to your user before writing a disk, so the files you end up with are still yours.
 
-When the machine is up, `trylab` prints a line like this:
+If a program the pack needs isn't installed yet, `trylab` offers to run `./prereqs` for you. Answer yes, and the installer will ask for your password.
+
+Once the machine is up, `trylab` prints a line like this:
 
 ```text
 open http://localhost:8080/sessions/…/
 ```
 
-Open that address. You are logged in as root on the lab machine. The banner says Unix command basics. The lesson is on the page, and the shell is beside it.
+Open that address in your browser. You're logged in as root on the lab machine, the banner says Unix command basics, and the lesson sits beside the shell.
 
-To stop the lab, press Ctrl-C in the terminal where `trylab` is running.
+When you're done, press Ctrl-C in the terminal where `trylab` is running to stop the lab.
 
 ## Docker is already on the machine
 
-`docker` is a second lab, made the same way. It has a title, a description, and a lesson. The lesson starts a container.
+The pack's second example, `docker`, is built the same way: a title, a description, and a lesson. This lesson starts a container.
 
-Docker is already installed on the shared disk, so this lab does not need a disk of its own.
+Docker comes preinstalled on the shared disk, so this lab doesn't need a disk of its own either.
 
 ```shell
 ./trylab docker
 ```
 
-The first time that lesson runs `docker run`, the machine downloads an image. The download needs the network.
+The first time the lesson runs `docker run`, the machine downloads the image, so it needs a network connection.
