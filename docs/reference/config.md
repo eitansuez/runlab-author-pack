@@ -102,4 +102,4 @@ If you leave it out, the lab uses the usual length. A published lab is shortened
 
 ## What makes a new disk
 
-Press Build when `setup.sh`, a file under `data/`, or `disk_gib` changes, and when you turn a snapshot on. The lesson, the title, the description, services, and environment names are read when the lab opens. Those do not need a new disk.
+Press Build when `setup.sh`, a file under `data/`, or `disk_gib` changes, and when you turn a snapshot on. On your own computer, `trylab` does that build the next time you open the lab. The lesson, the title, the description, services, and environment names are read when the lab opens. Those do not need a new disk.

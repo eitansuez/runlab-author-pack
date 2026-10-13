@@ -24,6 +24,8 @@ It also sets up the lab network for this account, and prepares `/run/netns`. Aft
 
 If `trylab` had to write a new `ssh-key`, and a disk was already there, it builds that disk again. The new key has to be on the disk.
 
+A later change to `setup.sh`, a file under `data/`, or `disk_gib` builds that lab's disk again before the lab starts. The snapshot is taken again after that build. A disk built by an older `trylab` has no record of those files, so the next open builds it once more.
+
 A lab that uses another disk, including `default`, does not get a second copy of that disk.
 
 The first build of any disk also writes the kernel and the initrd. The initrd is the small filesystem that mounts the disk at boot. Later builds reuse both.
