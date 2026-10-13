@@ -22,11 +22,22 @@ The first time you run `./trylab nginx`, it tells you nginx's disk doesn't exist
 
 ## A snapshot
 
-Normally, opening a lab starts the machine from its disk, which means waiting for it to boot. A snapshot is a save taken after the machine has booted and your software is running, and the next open resumes from that save. That way the learner doesn't wait for a boot, and the program is already running when the page appears.
+Opening a lab starts the machine from its disk, which includes a boot. A snapshot is a save taken after that boot, once a script you wrote has finished. The next open resumes that save, so the learner skips the boot and the program is already running.
 
-Write `snapshot: true` when you want that save. The first time you open the lab, `trylab` boots the machine, waits until it can log in, and writes the snapshot. That first open takes a while, but every open after it resumes the snapshot.
+`setup.sh` builds the disk. The story is what happens after the boot. List the steps in order. Each name is a file in `story/`, so the name `serving` is the file `story/serving.sh`.
 
-The save is taken at the moment the pack is able to log in to the machine. `nginx/setup.sh` makes that login wait until nginx is running, so the saved machine already has the server listening. Copy that pattern whenever some other program needs to be up before the save.
+```yaml
+snapshots:
+  - serving
+```
+
+The build boots the disk once, runs `story/serving.sh`, and saves the machine under that name. A second name in the list is the next file. The build runs it on that same machine and saves again.
+
+One name means the lab opens at that save. More than one name is a course on this one disk. Add `resume` and set it to the name this lab opens at. Leave the list out and the lab boots from the disk.
+
+`nginx/story/serving.sh` waits until the welcome page answers, and the save is taken when that script finishes with no error. Read the file in the pack.
+
+A change to a story script leaves the disk as it is. The build takes that save again, and every save after it. An earlier save stays.
 
 ## A link to a page the machine is serving
 
@@ -42,8 +53,9 @@ nginx serves its welcome page on port 80, at `/`.
 
 ```yaml
 title: Nginx basics
-description: An example of a lesson with a memory snapshot - nginx running, plus a service link.
-snapshot: true
+description: Open a lab where nginx is already serving a page.
+snapshots:
+  - serving
 services:
   - name: nginx
     port: 80
@@ -56,6 +68,6 @@ services:
 ./trylab nginx
 ```
 
-On the first run, `trylab` builds the disk if it's missing, saves the snapshot, and then prints the page address. Click `nginx` in the bar, and the new tab shows nginx's welcome page, including the line the setup script added.
+On the first run, `trylab` builds the disk if it's missing, runs the story, saves the machine, and then prints the page address. Click `nginx` in the bar, and the new tab shows nginx's welcome page, including the line the setup script added.
 
 You can fetch that same page from the shell with `curl http://127.0.0.1/`, because `127.0.0.1` is the machine you're logged into.

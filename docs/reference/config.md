@@ -62,13 +62,29 @@ env:
 
 The name on the left is a shell variable name: it starts with a letter or an underscore, followed by letters, digits, and underscores.
 
-## snapshot
+## snapshots
 
-`snapshot: true` saves the machine as soon as the pack is able to log in, and later opens resume that save. Leave the line out to boot from the disk every time.
+`snapshots` is a list of names. Each name is a short word of letters, digits, and hyphens, and the name is also the file. `serving` is the file `story/serving.sh`.
 
-Make sure the save happens at a moment worth keeping. If a program should already be running, `setup.sh` has to make the machine accept the login only after that program is up. The nginx example does exactly this for nginx.
+```yaml
+snapshots:
+  - serving
+  - gateway
+```
 
-On your computer, `trylab` writes the snapshot the first time it opens the lab. On the published site, Build writes it, and Publish waits until that save exists.
+The build boots the disk, runs `story/serving.sh` in the machine, and saves the machine when that file finishes with no error. The save is called `serving`. The next name runs on that same machine, and the build saves again. That save is called `gateway`.
+
+One name opens the lab at that save. More than one name is a course on this disk. Write `resume` with the name of the save this lab opens at.
+
+```yaml
+resume: serving
+```
+
+Leave the list out and the lab boots from the disk every time. A line that says `snapshot:` is refused. Write the list.
+
+On your computer, `trylab` writes the saves the first time it opens the lab. On the published site, Build writes them, and Publish waits until those saves exist.
+
+A change to a story script doesn't build a new disk. The build takes that save again, and every save after it. An earlier save stays.
 
 ## memory_mib
 
@@ -102,4 +118,6 @@ If you leave it out, the lab uses the usual length. On the published site, a lon
 
 ## What makes a new disk
 
-Press Build when `setup.sh`, a file under `data/`, or `disk_gib` changes, or when you turn a snapshot on. On your own computer, `trylab` does that build the next time you open the lab. The lesson, the title, the description, services, and environment names are read each time the lab opens, so changing them doesn't need a new disk.
+Press Build when `setup.sh`, a file under `data/`, or `disk_gib` changes. That builds the disk again and takes the saves again. Press Build when a story script changes. The disk stays, and the saves from that script on are taken again.
+
+On your own computer, `trylab` does that work the next time you open the lab. The lesson, the title, the description, services, and environment names are read each time the lab opens, so changing them doesn't need a new disk or a new save.
