@@ -22,7 +22,7 @@ The first time you run `./trylab nginx`, it tells you nginx's disk doesn't exist
 
 ## A snapshot
 
-Opening a lab starts the machine from its disk, which includes a boot. A snapshot is a save taken after that boot, once a script you wrote has finished. The next open resumes that save, so the learner skips the boot and the program is already running.
+Opening a lab starts the machine from its disk, which includes a boot. A snapshot is the running machine, taken after that boot, once a script you wrote has finished. The next open resumes that snapshot, so the learner skips the boot and the program is already running.
 
 `setup.sh` builds the disk. The story is what happens after the boot. List the steps in order. Each name is a file in `story/`, so the name `serving` is the file `story/serving.sh`.
 
@@ -31,13 +31,15 @@ snapshots:
   - serving
 ```
 
-The build boots the disk once, runs `story/serving.sh`, and saves the machine under that name. A second name in the list is the next file. The build runs it on that same machine and saves again.
+The build boots the disk once, runs `story/serving.sh`, and takes a snapshot under that name. A second name in the list is the next file. The build runs it on that same machine and takes another snapshot.
 
-One name means the lab opens at that save. More than one name is a course on this one disk. Add `resume` and set it to the name this lab opens at. Leave the list out and the lab boots from the disk.
+One name means the lab opens at that snapshot. More than one name is a course on this one disk. Add `resume` and set it to the name this lab opens at. Leave the list out and the lab boots from the disk.
 
-`nginx/story/serving.sh` waits until the welcome page answers, and the save is taken when that script finishes with no error. Read the file in the pack.
+`nginx/story/serving.sh` waits until the welcome page answers, and the snapshot is taken when that script finishes with no error. Read the file in the pack.
 
-A change to a story script leaves the disk as it is. The build takes that save again, and every save after it. An earlier save stays.
+A change to a story script leaves the disk as it is. The build takes that snapshot again, and every snapshot after it. An earlier snapshot stays.
+
+A story script only waits. When a snapshot can't be resumed, the lab boots from the disk and the story scripts don't run, so installs and configuration belong in `setup.sh`. A script that exits with an error stops the build, and the snapshots before it are kept. See [config.yaml](reference/config.md#snapshots) for the details.
 
 ## A link to a page the machine is serving
 
@@ -70,6 +72,6 @@ services:
 ./trylab nginx
 ```
 
-On the first run, `trylab` builds the disk if it's missing, runs the story, saves the machine, and then prints the page address. Click `nginx` in the bar, and the new tab shows nginx's welcome page, including the line the setup script added.
+On the first run, `trylab` builds the disk if it's missing, runs the story, takes the snapshot, and then prints the page address. Click `nginx` in the bar, and the new tab shows nginx's welcome page, including the line the setup script added.
 
 You can fetch that same page from the shell with `curl http://127.0.0.1/`, because `127.0.0.1` is the machine you're logged into.
