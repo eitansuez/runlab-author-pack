@@ -40,3 +40,79 @@ Open the [Agentgateway UI](service:agentgateway-ui).
 `header: false` on that service keeps it out of the bar. Leave the flag out, and the bar shows the link from the start. A link that doesn't match a service stops the lab from opening. An example inside a fenced code block is not a link.
 
 Inside the shell, you can reach that same port at `127.0.0.1`, because that's the machine you're on.
+
+## Panes
+
+The terminal on the lab page runs [Zellij](https://zellij.dev) when the machine has it, and the base disk does. A lesson can split that terminal into named panes and send a command, or a key, to one pane by name. A machine without Zellij gets an ordinary shell.
+
+Three pieces work together:
+
+- A layout file in `data/` that names the panes.
+- A layout link in the lesson that opens that layout.
+- A `panel="..."` on a shell block, or on a key link, that picks a pane by its name.
+
+### The layout file
+
+A layout is a Zellij layout file at `data/<name>.kdl`. Each pane gets its name with Zellij's own `name="..."` attribute. This is `agw-guardrails/data/two-pane.kdl` in the labs repository:
+
+```kdl
+layout {
+  pane name="gateway" size="40%" {
+    focus true
+  }
+  pane name="client" size="60%" {
+  }
+}
+```
+
+The layout file name uses letters, digits, hyphens, and underscores, and starts with a letter or a digit. Within one file, each pane name appears once and is never empty.
+
+### The layout link
+
+A link whose target is `zellij:<name>` opens `data/<name>.kdl` in the terminal:
+
+```markdown
+> [!IMPORTANT]
+> [Configure a two-panel layout](zellij:two-pane) for the terminal.
+```
+
+Clicking it replaces the terminal's layout with that file. It doesn't start a second session.
+
+### A command for one pane
+
+`pane name="gateway"` is Zellij's syntax, and it lives in the `.kdl` file. `panel="gateway"` is the lesson's syntax, and it goes after the language on a shell block. The two names have to match.
+
+````markdown
+```shell panel="gateway"
+agentgateway -f config-llm.yaml
+```
+````
+
+Run types each line into that pane and presses Enter. Only a shell block (`shell`, `bash`, `sh`, `zsh`, `ksh`) takes a `panel`. A block without one runs in the terminal as before.
+
+### A key for one pane
+
+A link whose target is `key:<chord>`, followed by `{panel="..."}`, is a button that presses that key in that pane. It doesn't press Enter afterward.
+
+```markdown
+> [!IMPORTANT]
+> [Stop agentgateway](key:Ctrl+C){panel="gateway"}
+```
+
+A chord is optional modifiers (`Ctrl`, `Alt`, `Shift`, `Super`) and one key: a letter, a digit, `Enter`, `Tab`, `Esc`, `Backspace`, `Space`, `Up`, `Down`, `Left`, `Right`, `Delete`, or `F1` to `F12`. `Ctrl+C`, `Ctrl-C`, and `Ctrl C` are the same chord. A key link always needs its `{panel="..."}`.
+
+### What the lab checks when it opens
+
+The lesson is read top to bottom. Each `panel` belongs to the closest layout link above it. The lab doesn't open, and the message names `index.md`, when:
+
+- a `panel` has no layout link above it (`panel "gateway" needs a layout link above it`),
+- the layout above it has no pane with that name (`layout two-pane has no pane named "gateway"`),
+- a layout link names a file that isn't there (`layout two-pane needs data/two-pane.kdl`),
+- a `panel` is on a block that isn't a shell block, or
+- a key link has no `{panel="..."}` or names an unknown key.
+
+An example inside a fenced block or inline code is not checked, so you can show the syntax in a lesson.
+
+The check reads the lesson, not what the learner did. A learner who skips the layout link and then presses Run on a `panel` block gets `no pane named "gateway". Open its layout first`. Put the layout link before the first block that uses a `panel`, and mark it as a note so it stands out.
+
+See `agw-guardrails` in the labs repository for a whole lesson written this way.
