@@ -37,7 +37,15 @@ The short name comes from the service name. The name is lowercased. Spaces, unde
 Open the [Agentgateway UI](service:agentgateway-ui).
 ```
 
-`header: false` on that service keeps it out of the bar. Leave the flag out, and the bar shows the link from the start. A link that doesn't match a service stops the lab from opening. An example inside a fenced code block is not a link.
+A path after the name opens a page under the service's path. When that path is `/ui`, this opens `/ui/logs`:
+
+```markdown
+Open the [logs](service:agentgateway-ui/logs).
+```
+
+The added path is one or more pieces separated by `/`. Each piece uses letters, digits, and `-`, `_`, `.`, or `~`. A piece that is `.` or `..` is refused. A link that doesn't match a service stops the lab from opening, and so does a path the lab refuses.
+
+`header: false` on that service keeps it out of the bar. Leave the flag out, and the bar shows the link from the start. The bar link opens the path from `config.yaml`, with nothing added. An example inside a fenced code block is not a link.
 
 Inside the shell, you can reach that same port at `127.0.0.1`, because that's the machine you're on.
 

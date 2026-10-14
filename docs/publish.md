@@ -14,11 +14,11 @@ Then push the repository. It only needs to hold the labs, not `trylab`, `packer`
 
 Sign in at https://runlabs.io using the Log in with Google button.
 
-Open your profile from the account menu and choose Author settings. Enter the repository as `owner/name` and save it, and the site reads the repository and lists the labs it finds.
+Open your profile from the account menu and choose Author. Enter the repository as `owner/name` and save it, and the site reads the repository and lists the labs it finds.
 
 ## Build the disk on the site
 
-Open the Labs tab, then open a lab.
+Under Author, open Labs, then open a lab.
 
 Press Build to make the disk on the site. Building doesn't publish the lab, so learners can't open it yet. A build can take several minutes.
 
@@ -30,7 +30,7 @@ When the page says the lab is ready to publish, press Publish. The lab joins the
 
 ## After you change the lab
 
-Push the change to GitHub, then press Refresh repository on the Labs tab so the site reads the repository again.
+Push the change to GitHub, then press Refresh repository on Labs so the site reads the repository again.
 
 A change to the lesson, the title, the description, or a service link is picked up the next time someone opens the lab, so you don't need to press Build for it.
 

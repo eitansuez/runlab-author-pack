@@ -46,7 +46,9 @@ The lesson link uses a short name made from `name`. The name is lowercased. Spac
 Open the [Agentgateway UI](service:agentgateway-ui).
 ```
 
-That link opens in a new tab, on the port and path from this file. A link that doesn't match a service stops the lab from opening. So does a pair of services that shorten to the same name. An example inside a fenced code block is not a link.
+That link opens in a new tab, on the port and path from this file. A path after the name opens a page under that path. With the service below, `[logs](service:agentgateway-ui/logs)` opens `/ui/logs`. [The lesson](lesson.md) says which paths are allowed.
+
+A link that doesn't match a service stops the lab from opening. So does a path the lab refuses, and a pair of services that shorten to the same name. An example inside a fenced code block is not a link.
 
 ```yaml
 services:
