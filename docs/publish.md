@@ -24,7 +24,7 @@ Press Build to make the disk on the site. Building doesn't publish the lab, so l
 
 A lab that uses the shared disk is ready as soon as that one disk exists on the site, and later labs reuse it. A lab with its own disk has to wait until its own build has finished.
 
-If the lab lists `snapshots`, Build also writes those saves, and Publish stays unavailable until the saves exist.
+If the lab lists `snapshots`, Build also takes those snapshots, and Publish stays unavailable until the snapshots exist.
 
 When the page says the lab is ready to publish, press Publish. The lab joins the catalog, and learners can open it.
 
@@ -34,6 +34,6 @@ Push the change to GitHub, then press Refresh repository on the Labs tab so the 
 
 A change to the lesson, the title, the description, or a service link is picked up the next time someone opens the lab, so you don't need to press Build for it.
 
-Press Build when the change is part of the disk, which means you changed `setup.sh`, a file under `data/`, or the disk size. The new disk replaces the old one, and the saves are taken again.
+Press Build when the change is part of the disk, which means you changed `setup.sh`, a file under `data/`, or the disk size. The new disk replaces the old one, and the snapshots are taken again.
 
-Press Build when you change a story script. The disk stays, and the build takes that save again, and every save after it. The lab stays published the whole time. Learners get the new disk once the build finishes.
+Press Build when you change a story script. The disk stays, and the build takes that snapshot again, and every snapshot after it. The lab stays published the whole time. Learners get the new disk once the build finishes.

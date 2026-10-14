@@ -73,7 +73,7 @@ The name on the left is a shell variable name: it starts with a letter or an und
 
 ## snapshots
 
-`snapshots` is a list of names. Each name is a short word of letters, digits, and hyphens, and the name is also the file. `serving` is the file `story/serving.sh`.
+`snapshots` is a list of names. Each name is lowercase letters, digits, and hyphens, and doesn't start with a hyphen. A name can appear once. The name is also the file: `serving` is `story/serving.sh` in the lab directory.
 
 ```yaml
 snapshots:
@@ -81,19 +81,35 @@ snapshots:
   - gateway
 ```
 
-The build boots the disk, runs `story/serving.sh` in the machine, and saves the machine when that file finishes with no error. The save is called `serving`. The next name runs on that same machine, and the build saves again. That save is called `gateway`.
+The build boots the disk and waits for SSH. Then it runs `story/serving.sh` on the machine as root, by piping the file to `bash -s`. The script's output is the build log. When the script exits 0, the build takes a snapshot of the machine called `serving`. The next name runs on that same machine, and the build takes the `gateway` snapshot.
 
-One name opens the lab at that save. More than one name is a course on this disk. Write `resume` with the name of the save this lab opens at.
+A script that exits with an error stops the build. That snapshot and every one after it aren't taken. The snapshots before it are kept. A name whose file is missing stops the build too, with a message that starts with `story/serving.sh` and ends with `no such file or directory`.
+
+One name opens the lab at that snapshot. More than one name is a course on this disk. Write `resume` with the name of the snapshot this lab opens at. Without `resume`, a lab with more than one name boots from the disk.
 
 ```yaml
 resume: serving
 ```
 
-Leave the list out and the lab boots from the disk every time. A line that says `snapshot:` is refused. Write the list.
+`resume` has to be one of the names in the list. Leave the list out and the lab boots from the disk every time.
 
-On your computer, `trylab` writes the saves the first time it opens the lab. On the published site, Build writes them, and Publish waits until those saves exist.
+The old `snapshot: true` line is refused with `snapshot: true is gone; list snapshots`. Replace it with the list.
 
-A change to a story script doesn't build a new disk. The build takes that save again, and every save after it. An earlier save stays.
+### Keep story scripts to waiting
+
+When a snapshot can't be resumed, the lab boots from the disk instead, and the story scripts don't run. So a story script should only wait until the machine is ready, such as a page answering or a service listening. Put installs and configuration in `setup.sh`, which builds the disk. `nginx/story/serving.sh` in the pack is the pattern:
+
+```bash
+#!/bin/bash
+set -eu
+curl -fsS http://127.0.0.1/ >/dev/null
+```
+
+### When snapshots are taken
+
+On your computer, `trylab` takes the snapshots the first time it opens the lab, before the page address appears, so that first open takes longer. On the published site, Build takes them, and Publish waits until those snapshots exist.
+
+A change to a story script doesn't build a new disk. The build takes that snapshot again, and every snapshot after it. An earlier snapshot stays.
 
 ## memory_mib
 
@@ -127,6 +143,6 @@ If you leave it out, the lab uses the usual length. On the published site, a lon
 
 ## What makes a new disk
 
-Press Build when `setup.sh`, a file under `data/`, or `disk_gib` changes. That builds the disk again and takes the saves again. Press Build when a story script changes. The disk stays, and the saves from that script on are taken again.
+Press Build when `setup.sh`, a file under `data/`, or `disk_gib` changes. That builds the disk again and takes the snapshots again. Press Build when a story script changes. The disk stays, and the snapshots from that script on are taken again.
 
-On your own computer, `trylab` does that work the next time you open the lab. The lesson, the title, the description, services, and environment names are read each time the lab opens, so changing them doesn't need a new disk or a new save.
+On your own computer, `trylab` does that work the next time you open the lab. The lesson, the title, the description, services, and environment names are read each time the lab opens, so changing them doesn't need a new disk or a new snapshot.

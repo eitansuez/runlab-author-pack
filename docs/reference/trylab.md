@@ -24,7 +24,7 @@ It also sets up the lab network for this account and prepares `/run/netns`. Afte
 
 If `trylab` had to write a new `ssh-key` and a disk was already there, it builds that disk again, because the new key has to be on the disk.
 
-A later change to `setup.sh`, a file under `data/`, or `disk_gib` builds that lab's disk again before the lab starts, and the saves are taken again after that build. A change to a story script leaves the disk, and that save and every save after it are taken again. A disk built by an older `trylab` has no record of those files, so the next open builds it once more.
+A later change to `setup.sh`, a file under `data/`, or `disk_gib` builds that lab's disk again before the lab starts, and the snapshots are taken again after that build. A change to a story script leaves the disk, and that snapshot and every snapshot after it are taken again. A disk built by an older `trylab` has no record of those files, so the next open builds it once more.
 
 A lab that uses another disk, including `default`, doesn't get a second copy of that disk.
 
@@ -41,7 +41,7 @@ The build needs the network. During it, files from `data/` are unpacked to `/roo
 
 Given a lab directory, `trylab` checks that `index.md` exists and writes `ssh-key` if it's missing. If the lab's disk is missing, it says the file doesn't exist and asks `Build it now? [Y/n]`. Press Enter or answer `y` to build the disk, or `n` to leave it unbuilt. With no terminal, it prints the note and starts the build.
 
-For a lab that lists `snapshots`, it writes a save when that save is missing or out of date, then opens the lab and prints:
+For a lab that lists `snapshots`, it takes a snapshot when that snapshot is missing or out of date, then opens the lab and prints:
 
 ```text
 open http://localhost:8080/sessions/…/
