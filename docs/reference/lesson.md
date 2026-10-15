@@ -14,6 +14,25 @@ Run sends each line to the shell, as if the learner had typed it and pressed Ent
 
 A block with any other tag, including `console`, `json`, `yaml`, and `yml`, or with no tag at all, is shown as text that can be copied but has no Run button. Use `console` for output you want the learner to read rather than run.
 
+## The Complete lab button
+
+On the hosted site, Complete lab starts disabled. It turns on when two things are true:
+
+- The learner has had the lab page open for 2 minutes. The clock starts when they first open the page, not when the lab machine starts, and a reload or reconnect keeps the time already spent.
+- The learner has used enough command blocks. A block counts once, the first time the learner presses Copy or Run on it. The lab needs at least 60% of the lesson's command blocks, rounded up: 1 of 1, 2 of 2, 2 of 3, 3 of 4, 3 of 5. A lesson with no command blocks skips this check.
+
+The disabled button shows no hint. The learner sees a disabled Complete lab button, with no time left and no count of blocks used. The page header shows how long the learner has been in the lab, which is not the time left on the gate. The button turns on by itself, without a reload, when the time runs out or when the block that meets the count is used. If your lesson should tell learners how to finish, say it in the lesson.
+
+The checks are a nudge, not a hard stop. A lock sits beside Complete lab. Until the checks pass, the learner can open the lock and complete the lab early. That ends the lab and frees the machine. Escape, a click elsewhere, or a second click on the lock closes it again. When the checks pass, the lock opens and stays open, and Complete lab turns on. There is no setting to turn the lock off.
+
+A command block is a fence with no language, a shell language (`bash`, `sh`, `shell`, `zsh`, `ksh`), or a program language such as `python` or `go`. Every other fence is output, and output does not count. Some things to keep in mind:
+
+- Label output fences, for example `text`, `json` or `yaml`. An unlabeled fence counts as a command, so unlabeled output makes the learner copy it to finish.
+- Optional commands count too. If many blocks are optional, a learner who skips them may not reach 60%.
+- Language names are case-sensitive. `Bash` is output, not a command.
+- Start a fence at the left margin, or indented by at most 3 spaces. Keep it out of block quotes and out of deeper list levels. The page still shows such a fence as a command, but the count does not include it.
+- Admin sessions on the hosted site get the same checks and the same lock. Trylab on your own machine skips both checks, so you will not see the gate there. Count your command blocks before you publish, or run the lab on the hosted site as an admin.
+
 ## Links
 
 A link in the lesson opens in a new tab.
