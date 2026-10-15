@@ -43,7 +43,17 @@ A path after the name opens a page under the service's path. When that path is `
 Open the [logs](service:agentgateway-ui/logs).
 ```
 
-The added path is one or more pieces separated by `/`. Each piece uses letters, digits, and `-`, `_`, `.`, or `~`. A piece that is `.` or `..` is refused. A `?` or `#` is refused too, so the link can't carry a query or a fragment. A slash at the end is dropped: `service:agentgateway-ui/logs/` opens `/ui/logs`, and `service:agentgateway-ui/` is refused. A link that doesn't match a service stops the lab from opening, and so does a path the lab refuses.
+The added path is one or more pieces separated by `/`. Each piece uses letters, digits, and `-`, `_`, `.`, or `~`. A piece that is `.` or `..` is refused. A slash at the end is dropped: `service:agentgateway-ui/logs/` opens `/ui/logs`, and `service:agentgateway-ui/` is refused.
+
+A question mark adds a query string, and a hash adds a fragment. When the service path is `/ui`, this opens `/ui/llm/analytics?groupBy=group&metric=cost`:
+
+```markdown
+Open the [cost by group](service:agentgateway-ui/llm/analytics?groupBy=group&metric=cost).
+```
+
+The query and the fragment use letters, digits, and `-`, `_`, `.`, `~`, `,`, `:`, `=`, `&`, `%`, `+`. A fragment may also contain `?`. Write those characters as themselves. A `?` or `#` with nothing after it is refused.
+
+A link that doesn't match a service stops the lab from opening, and so does a path, query, or fragment the lab refuses.
 
 `header: false` on that service keeps it out of the bar. Leave the flag out, and the bar shows the link from the start. The bar link opens the path from `config.yaml`, with nothing added. An example inside a fenced code block is not a link.
 
