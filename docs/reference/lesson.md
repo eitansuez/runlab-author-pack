@@ -18,16 +18,18 @@ A block with any other tag, including `console`, `json`, `yaml`, and `yml`, or w
 
 On the hosted site, Complete lab starts disabled. It turns on when two things are true:
 
-- The lab has been open for 2 minutes. A reload keeps the time already spent.
+- The lab has been open for 2 minutes. The clock starts when the lab starts, and a reload keeps the time already spent.
 - The learner has used enough command blocks. A block counts once, the first time the learner presses Copy or Run on it. The lab needs at least 60% of the lesson's command blocks, rounded up: 1 of 1, 2 of 2, 2 of 3, 3 of 4, 3 of 5. A lesson with no command blocks skips this check.
+
+The disabled button shows no hint. The learner sees a disabled Complete lab button, with no time left and no count of blocks used. The button turns on by itself, without a reload, when the time runs out or when the block that meets the count is used. If your lesson should tell learners how to finish, say it in the lesson.
 
 A command block is a fence with no language, a shell language (`bash`, `sh`, `shell`, `zsh`, `ksh`), or a program language such as `python` or `go`. Every other fence is output, and output does not count. Some things to keep in mind:
 
 - Label output fences, for example `text`, `json` or `yaml`. An unlabeled fence counts as a command, so unlabeled output makes the learner copy it to finish.
 - Optional commands count too. If many blocks are optional, a learner who skips them may not reach 60%.
 - Language names are case-sensitive. `Bash` is output, not a command.
-- Start a fence at the left margin, or indented by at most 3 spaces. Keep it out of block quotes.
-- trylab on your own machine does not gate the button, so you will not see it there. Count your command blocks before you publish.
+- Start a fence at the left margin, or indented by at most 3 spaces. Keep it out of block quotes and out of deeper list levels. The page still shows such a fence as a command, but the count does not include it.
+- Admin sessions skip both checks. So does trylab on your own machine. You will not see the gate there, so count your command blocks before you publish.
 
 ## Links
 
