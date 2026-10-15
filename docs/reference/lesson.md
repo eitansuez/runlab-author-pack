@@ -49,7 +49,7 @@ Read [the route](bat:data/route.yaml) before you apply it.
 [Inspect the config](bat:client:~/.config/agentgateway/config.yaml)
 ```
 
-A link inside a sentence is an ordinary link, and hovering it shows the path. A link that is its own paragraph, or the whole of an important note, is one row: the path on the left, and "view" with an eye on the right. The author's words are the row's tooltip. Hovering the row highlights it, and the eye opens. One click on either shows the file in the terminal. When the note is only that link, the row replaces the note.
+A link inside a sentence is an ordinary link, and hovering it shows the path. A link that is its own paragraph, or the whole of an important note, is one row: the path on the left, and "view" with an eye on the right. When the link names a pane, that name is shown in the accent color between the path and "view", the same way a command block shows its `panel`. The author's words are the row's tooltip. Hovering the row highlights it, and the eye opens. One click on either shows the file in the terminal. When the note is only that link, the row replaces the note.
 
 `bat:data/route.yaml` types the command in the terminal. `bat:client:data/route.yaml` types it in the pane named `client`. That pane has to belong to a layout link above it, the same way a shell block's `panel` does.
 
