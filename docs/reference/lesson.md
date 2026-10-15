@@ -51,9 +51,11 @@ Read [the route](bat:data/route.yaml) before you apply it.
 
 A link inside a sentence is an ordinary link, and hovering it shows the path. A link that is its own paragraph, or the whole of an important note, is one row: the path on the left, and "view" with an eye on the right. When the link names a pane, that name is shown in the accent color between the path and "view", the same way a command block shows its `panel`. The author's words are the row's tooltip. Hovering the row highlights it, and the eye opens. One click on either shows the file in the terminal. When the note is only that link, the row replaces the note.
 
-`bat:data/route.yaml` types the command in the terminal. `bat:client:data/route.yaml` types it in the pane named `client`. That pane has to belong to a layout link above it, the same way a shell block's `panel` does.
+Use an inline `bat:` link when you mention a file in passing, or refer to a file a second time, so learners can look at it without scrolling back to the step that first showed it.
 
-The path is a file name. Pieces are separated by `/` and use letters, digits, and `-`, `_`, or `.`. A piece that is `.` or `..` is refused, and so is a path that starts with `/` or contains `:`. A path that starts with `~/` is the home folder, as in `~/.config/agentgateway/config.yaml`. A `~` anywhere else is refused. The lab does not check that the file is there. An example inside a fenced block or inline code is not a link. A command that only uses the pager, such as `kubectl get … | bat`, stays a fenced block.
+`bat:data/route.yaml` types the command in the first terminal on the page. `bat:client:data/route.yaml` types it in the pane named `client`. That pane has to belong to a layout link above it, the same way a shell block's `panel` does.
+
+The path is a file name. Pieces are separated by `/` and use letters, digits, and `-`, `_`, or `.`. A piece that is `.` or `..` is refused, and so is a path that starts with `/`, ends with `/`, contains `//`, or contains `:`. A path that starts with `~/` is the home folder, as in `~/.config/agentgateway/config.yaml`. A `~` anywhere else is refused. Any other path is relative to the folder the terminal is in. A terminal starts in the home folder, and the lab's `data/` folder is `~/data`, so `data/route.yaml` names a file the lab ships. If `setup.sh` copies the files somewhere else, such as into the home folder, use the path they end up at. The lab does not check that the file is there. An example inside a fenced block or inline code is not a link. A command that only uses the pager, such as `kubectl get … | bat`, stays a fenced block.
 
 ## A note
 
