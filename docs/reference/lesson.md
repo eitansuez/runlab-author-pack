@@ -21,7 +21,7 @@ On the hosted site, Complete lab starts disabled. It turns on when two things ar
 - The learner has had the lab page open for 2 minutes. The clock starts when they first open the page, not when the lab machine starts, and a reload or reconnect keeps the time already spent.
 - The learner has used enough command blocks. A block counts once, the first time the learner presses Copy or Run on it. The lab needs at least 60% of the lesson's command blocks, rounded up: 1 of 1, 2 of 2, 2 of 3, 3 of 4, 3 of 5. A lesson with no command blocks skips this check.
 
-The disabled button shows no hint. The learner sees a disabled Complete lab button, with no time left and no count of blocks used. The button turns on by itself, without a reload, when the time runs out or when the block that meets the count is used. If your lesson should tell learners how to finish, say it in the lesson.
+The disabled button shows no hint. The learner sees a disabled Complete lab button, with no time left and no count of blocks used. The page header shows how long the learner has been in the lab, which is not the time left on the gate. The button turns on by itself, without a reload, when the time runs out or when the block that meets the count is used. If your lesson should tell learners how to finish, say it in the lesson.
 
 A command block is a fence with no language, a shell language (`bash`, `sh`, `shell`, `zsh`, `ksh`), or a program language such as `python` or `go`. Every other fence is output, and output does not count. Some things to keep in mind:
 
