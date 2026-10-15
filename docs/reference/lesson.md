@@ -18,7 +18,7 @@ A block with any other tag, including `console`, `json`, `yaml`, and `yml`, or w
 
 On the hosted site, Complete lab starts disabled. It turns on when two things are true:
 
-- The lab has been open for 2 minutes. The clock starts when the lab starts, and a reload keeps the time already spent.
+- The learner has had the lab page open for 2 minutes. The clock starts when they first open the page, not when the lab machine starts, and a reload or reconnect keeps the time already spent.
 - The learner has used enough command blocks. A block counts once, the first time the learner presses Copy or Run on it. The lab needs at least 60% of the lesson's command blocks, rounded up: 1 of 1, 2 of 2, 2 of 3, 3 of 4, 3 of 5. A lesson with no command blocks skips this check.
 
 The disabled button shows no hint. The learner sees a disabled Complete lab button, with no time left and no count of blocks used. The button turns on by itself, without a reload, when the time runs out or when the block that meets the count is used. If your lesson should tell learners how to finish, say it in the lesson.
