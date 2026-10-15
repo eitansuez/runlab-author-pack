@@ -14,6 +14,21 @@ Run sends each line to the shell, as if the learner had typed it and pressed Ent
 
 A block with any other tag, including `console`, `json`, `yaml`, and `yml`, or with no tag at all, is shown as text that can be copied but has no Run button. Use `console` for output you want the learner to read rather than run.
 
+## The Complete lab button
+
+On the hosted site, Complete lab starts disabled. It turns on when two things are true:
+
+- The lab has been open for 2 minutes. A reload keeps the time already spent.
+- The learner has used enough command blocks. A block counts once, the first time the learner presses Copy or Run on it. The lab needs at least 60% of the lesson's command blocks, rounded up: 1 of 1, 2 of 2, 2 of 3, 3 of 4, 3 of 5. A lesson with no command blocks skips this check.
+
+A command block is a fence with no language, a shell language (`bash`, `sh`, `shell`, `zsh`, `ksh`), or a program language such as `python` or `go`. Every other fence is output, and output does not count. Some things to keep in mind:
+
+- Label output fences, for example `text`, `json` or `yaml`. An unlabeled fence counts as a command, so unlabeled output makes the learner copy it to finish.
+- Optional commands count too. If many blocks are optional, a learner who skips them may not reach 60%.
+- Language names are case-sensitive. `Bash` is output, not a command.
+- Start a fence at the left margin, or indented by at most 3 spaces. Keep it out of block quotes.
+- trylab on your own machine does not gate the button, so you will not see it there. Count your command blocks before you publish.
+
 ## Links
 
 A link in the lesson opens in a new tab.
