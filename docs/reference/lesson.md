@@ -16,7 +16,25 @@ A block with any other tag, including `console`, `json`, `yaml`, and `yml`, or w
 
 ## Links
 
-A link in the lesson opens in a new tab.
+A link in the lesson opens in a new tab. A `bat:` link shows a file in the terminal instead.
+
+## Showing a file
+
+A link whose target is `bat:<path>` shows that file in the terminal. The lesson does not show the command.
+
+```markdown
+Read [the route](bat:data/route.yaml) before you apply it.
+
+[Inspect the route](bat:data/route.yaml)
+
+[Inspect the config](bat:client:~/.config/agentgateway/config.yaml)
+```
+
+A link inside a sentence is an ordinary link, and hovering it shows the path. A link that is its own paragraph, or the whole of an important note, is a row: the words, an eye, and the path. One click on either runs the command in the terminal. When the note is only that link, the row replaces the note.
+
+`bat:data/route.yaml` types the command in the terminal. `bat:client:data/route.yaml` types it in the pane named `client`. That pane has to belong to a layout link above it, the same way a shell block's `panel` does.
+
+The path is a file name. Pieces are separated by `/` and use letters, digits, and `-`, `_`, or `.`. A piece that is `.` or `..` is refused, and so is a path that starts with `/` or contains `:`. A path that starts with `~/` is the home folder, as in `~/.config/agentgateway/config.yaml`. A `~` anywhere else is refused. The lab does not check that the file is there. An example inside a fenced block or inline code is not a link. A command that only uses the pager, such as `kubectl get … | bat`, stays a fenced block.
 
 ## A note
 
@@ -127,7 +145,9 @@ The lesson is read top to bottom. Each `panel` belongs to the closest layout lin
 - the layout above it has no pane with that name (`layout two-pane has no pane named "gateway"`),
 - a layout link names a file that isn't there (`layout two-pane needs data/two-pane.kdl`),
 - a `panel` is on a block that isn't a shell block, or
-- a key link has no `{panel="..."}` or names an unknown key.
+- a key link has no `{panel="..."}` or names an unknown key, or
+- a `bat:` link has no path, or a path the lab refuses (`file link "…" has a bad path`), or
+- a `bat:` link names a pane the layout above it does not have.
 
 An example inside a fenced block or inline code is not checked, so you can show the syntax in a lesson.
 
