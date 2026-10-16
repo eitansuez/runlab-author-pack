@@ -16,7 +16,7 @@ A block with any other tag, including `console`, `json`, `yaml`, and `yml`, or w
 
 ## The Complete lab button
 
-On the hosted site, Complete lab starts disabled. It turns on when two things are true:
+On the hosted site, Complete lab starts disabled. In a lesson that marks no completion command, it turns on when two things are true:
 
 - The learner has had the lab page open for 2 minutes. The clock starts when they first open the page, not when the lab machine starts, and a reload or reconnect keeps the time already spent.
 - The learner has used enough command blocks. A block counts once, the first time the learner presses Copy or Run on it. The lab needs at least 60% of the lesson's command blocks, rounded up: 1 of 1, 2 of 2, 2 of 3, 3 of 4, 3 of 5. A lesson with no command blocks skips this check.
@@ -32,6 +32,22 @@ A command block is a fence with no language, a shell language (`bash`, `sh`, `sh
 - Language names are case-sensitive. `Bash` is output, not a command.
 - Start a fence at the left margin, or indented by at most 3 spaces. Keep it out of block quotes and out of deeper list levels. The page still shows such a fence as a command, but the count does not include it.
 - Admin sessions on the hosted site get the same checks and the same lock. Trylab on your own machine skips both checks, so you will not see the gate there. Count your command blocks before you publish, or run the lab on the hosted site as an admin.
+
+### A completion command
+
+A lesson can name the command that means the learner has reached the point the lab is teaching. Put `completion="true"` after the language on that command block:
+
+````markdown
+```shell completion="true"
+curl -s http://httpbin.example.com/headers --resolve httpbin.example.com:80:$GW_IP | jq
+```
+````
+
+When the learner runs that command, the lock opens and Complete lab turns on.
+
+The mark replaces the platform checks for that lab. The 2-minute clock and the 60% count of command blocks no longer open the lock, so copying the other blocks and waiting out the clock does not open it. The learner can still open the lock by hand and complete early, as above. A lesson that marks nothing keeps the checks above.
+
+Mark one command, the one the lab builds up to. The `completion` attribute goes after the language, the same way [`panel`](#a-command-for-one-pane) does.
 
 ## Links
 
@@ -146,6 +162,8 @@ agentgateway -f config-llm.yaml
 ````
 
 Run types each line into that pane and presses Enter. Only a shell block (`shell`, `bash`, `sh`, `zsh`, `ksh`) takes a `panel`. A block without one runs in the terminal as before.
+
+The other fence attribute, `completion="true"`, marks the command that finishes the lab. See [A completion command](#a-completion-command).
 
 ### A key for one pane
 
