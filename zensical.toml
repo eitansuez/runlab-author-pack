@@ -10,6 +10,7 @@ nav = [
   { "Prepare the machine" = "prepare.md" },
   { "Write your own" = "yours.md" },
   { "Publish" = "publish.md" },
+  { "An event set" = "event-set.md" },
   { "An API key" = "secret.md" },
   { "Reference" = [
     { "config.yaml" = "reference/config.md" },
