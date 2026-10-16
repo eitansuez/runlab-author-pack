@@ -54,7 +54,7 @@ snapshots:
 
 The build boots the disk once, runs `story/serving.sh`, and takes a snapshot under that name. A second name in the list is the next file. The build runs it on that same machine and takes another snapshot.
 
-One name means the lab opens at that snapshot. More than one name is a course on this one disk. Add `resume` and set it to the name this lab opens at. Leave the list out and the lab boots from the disk.
+One name means the lab opens at that snapshot. With more than one name, `resume` picks which snapshot the lab opens at. Leave the list out and the lab boots from the disk.
 
 `nginx/story/serving.sh` is one line that fetches the welcome page:
 
