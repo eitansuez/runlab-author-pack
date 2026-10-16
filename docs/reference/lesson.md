@@ -25,6 +25,16 @@ The disabled button shows no hint. The learner sees a disabled Complete lab butt
 
 The checks are a nudge, not a hard stop. A lock sits beside Complete lab. Until the checks pass, the learner can open the lock and complete the lab early. That ends the lab and frees the machine. Escape, a click elsewhere, or a second click on the lock closes it again. When the checks pass, the lock opens and stays open, and Complete lab turns on. There is no setting to turn the lock off.
 
+To name the command that finishes the lab, add `completion="true"` to that shell fence. The same form is used for a pane: `panel="gateway"`.
+
+````markdown
+```shell completion="true"
+curl -s http://httpbin.example.com/headers --resolve httpbin.example.com:80:$GW_IP | jq
+```
+````
+
+Run on that fence opens the lock. Copy does not. The other fences do not. Waiting out the two minutes does not. Typing the same text into the terminal does not. The mark belongs on one shell fence (`shell`, `bash`, `sh`, `zsh`, or `ksh`). A command for a pane carries both, as in `shell panel="gateway" completion="true"`. Two marks, a value other than `true`, or a mark on any other fence, and the lab does not open. A lesson without the attribute keeps the checks above. The lock still lets a learner finish early.
+
 A command block is a fence with no language, a shell language (`bash`, `sh`, `shell`, `zsh`, `ksh`), or a program language such as `python` or `go`. Every other fence is output, and output does not count. Some things to keep in mind:
 
 - Label output fences, for example `text`, `json` or `yaml`. An unlabeled fence counts as a command, so unlabeled output makes the learner copy it to finish.
