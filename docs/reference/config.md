@@ -87,7 +87,7 @@ The build boots the disk and waits for SSH. Then it runs `story/serving.sh` on t
 
 A script that exits with an error stops the build. That snapshot and every one after it aren't taken. The snapshots before it are kept. A name whose file is missing stops the build too, with a message that starts with `story/serving.sh` and ends with `no such file or directory`.
 
-One name opens the lab at that snapshot. More than one name is a course on this disk. Write `resume` with the name of the snapshot this lab opens at. Without `resume`, a lab with more than one name boots from the disk.
+One name opens the lab at that snapshot. With more than one name, `resume` picks which snapshot the lab opens at. Without `resume`, a lab with more than one name boots from the disk.
 
 ```yaml
 resume: serving
