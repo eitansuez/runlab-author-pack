@@ -49,6 +49,13 @@ The mark replaces the platform checks for that lab. The 2-minute clock and the 6
 
 Mark one command, the one the lab builds up to. The `completion` attribute goes after the language, the same way [`panel`](#a-command-for-one-pane) does. A pane command can carry both: `shell panel="gateway" completion="true"`. Two marks, a value other than `true`, or a mark on a fence the learner cannot run, and the lab does not open.
 
+Some things to keep in mind:
+
+- Only a press of Run on the marked block counts. The platform does not check that the command worked, so a Run that fails, or a Run while the terminal is offline, still opens the lock.
+- The lab checks the spelling of the value, not of the attribute. `completions="true"`, `completion=true` without quotes, or a bare `complete` is ignored, and the lab keeps the 2-minute and 60% checks. Copy the attribute exactly.
+- Admin sessions on the hosted site follow the mark too. Trylab on your own machine has no gate, so the mark does nothing there, but a bad mark still stops the lab from opening.
+- Until [issue #145](https://github.com/eitansuez/runlab/issues/145) is fixed, keep every command fence before the marked one at the left margin, outside block quotes and deeper list levels. Such a fence shifts the block numbering, and Run on the marked block then does not open the lock.
+
 ## Links
 
 A link in the lesson opens in a new tab. A `bat:` link shows a file in the terminal instead.
