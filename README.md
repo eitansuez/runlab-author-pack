@@ -2,9 +2,9 @@
 
 This pack lets you build, develop, and test labs on your own machine. When a lab is ready, you publish it at runlabs.io.
 
-`trylab` is the program you use. It runs on Linux x86_64 with KVM.
+The manual teaches how to install the pack, build a lab, run it, and test it: https://docs.runlabs.io/
 
-Download the latest release and unpack it. The archive contains `trylab`, `prereqs`, `elevate`, `runlabctl`, a `packer/` directory of build scripts, and the instructions. Packer itself is installed by `./prereqs`. It is not a program in the archive.
+Download the latest release and unpack it. The archive contains `trylab`, the program you run, plus what supports it: `prereqs`, `elevate`, `runlabctl`, a `packer/` directory of build scripts, and the instructions. Packer itself is not in the archive. `./prereqs` installs it, and installs `elevate`.
 
 https://github.com/eitansuez/runlab-author-pack/releases/latest
 
