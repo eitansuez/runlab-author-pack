@@ -6,4 +6,4 @@ The lab machine is a Linux computer that runs inside your own, so your account h
 
 The pack is a download, and the next page shows you how to install it. After that, the [Tutorial](tutorial/index.md) walks through the examples that come with it, and then you write a lab of your own.
 
-The download also includes a short page of commands; this manual is the longer course.
+The download also includes a short readme. This manual is where you learn the pack.
